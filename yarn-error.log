@@ -1,0 +1,49 @@
+Arguments: 
+  /home/shothogun/.nvm/versions/node/v10.18.1/bin/node /usr/share/yarn/bin/yarn.js add extenso.
+
+PATH: 
+  /home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/shothogun/.zinit/polaris/bin:/home/shothogun/.nvm/versions/node/v10.18.1/bin:/home/shothogun/.local/bin:/usr/share/rvm/gems/ruby-2.6.3/bin:/usr/share/rvm/gems/ruby-2.6.3@global/bin:/usr/share/rvm/rubies/ruby-2.6.3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/share/rvm/bin:/home/shothogun/Android/Sdk/emulator:/home/shothogun/Android/Sdk/tools:/home/shothogun/Android/Sdk/tools/bin:/home/shothogun/Android/Sdk/platform-tools:/home/shothogun/android-studio/bin:/usr/local/go/bin:/home/shothogun/.local/bin:/home/shothogun/Android/Sdk/emulator:/home/shothogun/Android/Sdk/tools:/home/shothogun/Android/Sdk/tools/bin:/home/shothogun/Android/Sdk/platform-tools:/home/shothogun/android-studio/bin:/usr/local/go/bin:/home/shothogun/.local/bin
+
+Yarn version: 
+  1.22.5
+
+Node version: 
+  10.18.1
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: https://registry.npmjs.org/extenso.: Not found
+      at Request.params.callback [as _callback] (/usr/share/yarn/lib/cli.js:66988:18)
+      at Request.self.callback (/usr/share/yarn/lib/cli.js:140749:22)
+      at Request.emit (events.js:198:13)
+      at Request.<anonymous> (/usr/share/yarn/lib/cli.js:141721:10)
+      at Request.emit (events.js:198:13)
+      at IncomingMessage.<anonymous> (/usr/share/yarn/lib/cli.js:141643:12)
+      at Object.onceWrapper (events.js:286:20)
+      at IncomingMessage.emit (events.js:203:15)
+      at endReadableNT (_stream_readable.js:1145:12)
+      at process._tickCallback (internal/process/next_tick.js:63:19)
+
+npm manifest: 
+  {
+    "name": "desafio-codigo",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "git@github.com:Novatics/desafio-codigo.git",
+    "author": "Novatics <hello@novatics.com.br>",
+    "license": "MIT",
+    "devDependencies": {
+      "jest": "^27.0.4"
+    },
+    "scripts": {
+      "test": "jest"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

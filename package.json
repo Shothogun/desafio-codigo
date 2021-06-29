@@ -10,5 +10,13 @@
   },
   "scripts": {
     "test": "jest"
+  },
+  "dependencies": {
+    "core-js": "^3.15.2",
+    "extenso": "^2.0.1"
+  },
+  "jest": {
+    "setupFiles": ["core-js"]
   }
+
 }
