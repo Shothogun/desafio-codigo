@@ -27,19 +27,19 @@ function getKudosForUser(points) {
   // Express how many kudos will be required to 
   // a certain amount of points
   var kudoHistogram = []
-  
+
   // For each Kudo, computes how many kudos 
   // is used for the remaining amount of points
-  kudo2pointsReversed.forEach((kudoObj,index)=>{
-    let times = Math.floor(points/kudoObj.value)
+  kudo2pointsReversed.forEach((kudoObj, index) => {
+    let times = Math.floor(points / kudoObj.value)
     kudoHistogram.push(times)
-    points = points-(times*kudoObj.value)
+    points = points - (times * kudoObj.value)
   })
 
   // Given the kudos amount, an array with the 
   // given amount lenght is filled with the
   // correspondent kudo
-  let kudo =  kudoHistogram.map((freq, index)=>
+  let kudo = kudoHistogram.map((freq, index) =>
     Array(freq).fill(kudo2pointsReversed[index])
   ).flat()
 
@@ -50,7 +50,99 @@ function getKudosForUser(points) {
   Recebe: Recebe um array contendo os nomes dos kudos de um usuário. Ex.: ['OK', 'GOOD']
   Retorna: a mensagem padrão com o valor em reais dos kudos por extenso. Ex.: Parabéns, você ganhou vinte e cinco reais
 */
-function getKudosValueMessageForUser(kudos) { }
+function getKudosValueMessageForUser(kudos) {
+  let findKudo2ReaisValue = (kudoName) =>
+    KUDOS_TO_REAL.find(obj => obj.name == kudoName).value
+
+  let reais = kudos.reduce((total, kudoName) =>
+    total + findKudo2ReaisValue(kudoName)
+    , 0)
+
+  let value_in_words = number2Words(value)
+
+  let message = "Você recebeu " + value_in_words +
+    " reais em retorno aos kudos" + kudos
+
+  return message
+}
+
+function number2Words(value) {
+  let numberInWords = ""
+  let digitList = getDigits(value)
+
+  let hundredNumber = digitList[0] != 0 ||
+    digitList[1] != 0 ||
+    digitList[2] != 0
+
+  let thousandNumber = digitList[0] == 0 &&
+    digitList[1] == 0 &&
+    digitList[2] == 1
+
+  numberInWords += thousandNumber ? ""
+    : parseHundreds2Word(digitList[0], digitList[1], digitList[2])
+  numberInWords += thousandNumber || (~hundredNumber) ? "" : " " 
+  numberInWords += hundredNumber ? ("mil") : "";
+
+  hundredNumber = digitList[3] != 0 ||
+    digitList[4] != 0 ||
+    digitList[5] != 0
+
+  numberInWords += numberInWords == "" ? "" :
+    hundredNumber ? " " : ""
+
+  numberInWords += parseHundreds2Word(digitList[3], digitList[4], digitList[5])
+  return numberInWords
+}
+
+function parseHundreds2Word(hundred, dozen, unit) {
+  let units = ["", "um", "dois", "tres", "quatro", "cinco"
+    , "seis", "sete", "oito", "nove", "dez", "onze", "doze", "treze"
+    , "catorze", "quinze", "dezesseis", "dezessete", "dezoito", "dezenove"]
+
+  let dozenM10 = ["", "", "vinte", "trinta", "quarenta", "cinquenta"
+    , "sessenta", "setenta", "oitenta", "noventa", "cem"]
+
+  let hundreds = ["", "cento", "duzentos", "trezentos", "quatrocentos"
+    , "quinhentos", "seiscentos", "setecentos"
+    , "oitocentos", "novecentos"]
+
+  let numberInWords = ""
+  let simpleHundredNumber = hundred == 1 &&
+    dozen == 0 &&
+    unit == 0
+
+  let unitE = (dozen > 1) && (unit != 0) || (hundred != 0 && dozen == 0) && (unit != 0)
+  let dozenE = (hundred != 0 && (dozen != 0))
+
+  numberInWords += simpleHundredNumber ? ("cem") :
+    (hundred != 0) ? (hundreds[hundred]) : "";
+  numberInWords += dozenE ? " e " : ""
+  numberInWords += (dozen != 0) ?
+    ((units[dozen * 10 + unit] ||
+      dozenM10[dozen])) : "";
+  numberInWords += unitE ? " e " : ""
+  numberInWords += (dozen != 1 && unit != 0) ? (units[unit]) : ""
+
+  return numberInWords
+}
+
+function getDigits(value) {
+  let digitList = []
+  const DIGITS_SIZE = 6
+
+  while (value > 0) {
+    digitList.push(value % 10)
+    value = Math.floor(value / 10)
+  }
+
+  while (digitList.length < DIGITS_SIZE) {
+    digitList.push(0)
+  }
+
+  digitList.reverse()
+
+  return digitList
+}
 
 module.exports = {
   getKudosForUser,
