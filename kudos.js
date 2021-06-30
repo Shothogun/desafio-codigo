@@ -54,6 +54,11 @@ function getKudosForUser(points) {
   Retorna: a mensagem padrão com o valor em reais dos kudos por extenso. Ex.: Parabéns, você ganhou vinte e cinco reais
 */
 function getKudosValueMessageForUser(kudos) {
+  // Exception case: no Kudo!
+  if (kudos.length == 0){
+    return "Você recebeu zero reais em retorno aos kudos !"
+  }
+
   var findKudo2ReaisValue = (kudoName) =>
     KUDOS_TO_REAL.find(obj => obj.name == kudoName).value
 
